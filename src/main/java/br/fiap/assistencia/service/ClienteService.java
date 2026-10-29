@@ -35,4 +35,26 @@ public class ClienteService {
                 .map(mapper::paraResposta)
                 .toList();
     }
+
+    public void excluir(Long id){
+        repo.deleteById(id);
+    }
+
+    @Transactional
+    public ClienteResponse atualizar(Long id, ClienteRequest request) {
+        Cliente cliente = repo.findById(id).orElseThrow();
+        cliente.setNome(request.nome());
+        cliente.setEmail(request.email());
+        cliente.setTelefone(request.telefone());
+        cliente.setSenha(request.senha());
+
+        return mapper.paraResposta(cliente);
+    }
+
+
+    public ClienteResponse pesquisarPorEmail(String email){
+        Cliente cliente = repo.findByEmail(email).orElseThrow();
+
+        return mapper.paraResposta(cliente);
+    }
 }

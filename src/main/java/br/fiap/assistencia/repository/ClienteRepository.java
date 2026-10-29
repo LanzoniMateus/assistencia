@@ -1,6 +1,11 @@
 package br.fiap.assistencia.repository;
 
 import br.fiap.assistencia.domain.Cliente;
+import br.fiap.assistencia.dto.ClienteResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ClienteRepository extends JpaRepository<Cliente, Long> { }
+import java.util.Optional;
+
+public interface ClienteRepository extends JpaRepository<Cliente, Long> {
+    public Optional<Cliente> findByEmail(String email);
+}
